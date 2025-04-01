@@ -1,15 +1,13 @@
 import SwiftUI
 
 public struct WatchTowerView: View {
-    private let events: [Event]
-
-    public init(events: [Event]) {
-        self.events = events
+    private let watchTower: WatchTower = .shared
+    public init(){
+        
     }
-
     public var body: some View {
         List {
-            ForEach(events) { event in
+            ForEach(watchTower.events) { event in
                 VStack(alignment: .leading) {
                     Text("Type: \(event.type)")
                     Text(event.value)
@@ -20,8 +18,5 @@ public struct WatchTowerView: View {
 }
 
 #Preview {
-    WatchTowerView(events: [
-        Event(id: UUID(), type: "general", value: "First Log"),
-        Event(id: UUID(), type: "general", value: "Second Log"),
-    ])
+    WatchTowerView()
 }
