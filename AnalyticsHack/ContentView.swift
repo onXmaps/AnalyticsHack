@@ -1,21 +1,19 @@
-//
-//  ContentView.swift
-//  AnalyticsHack
-//
-//  Created by Jeremy Lehman on 4/1/25.
-//
-
 import SwiftUI
+import ONXYellowstone
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack {
+                YSButton("text")
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                Text("Hello, world!")
+            }
+            .padding()
+            .navigationTitle("Watch Tower")
         }
-        .padding()
     }
 }
 

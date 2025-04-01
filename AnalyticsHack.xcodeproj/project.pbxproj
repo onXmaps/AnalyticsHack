@@ -6,8 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A4B645BD2D9C72D1000743CA /* ONXYellowstone in Frameworks */ = {isa = PBXBuildFile; productRef = A4B645BC2D9C72D1000743CA /* ONXYellowstone */; };
+		A4B645CA2D9C7346000743CA /* ONXWatchTower in Frameworks */ = {isa = PBXBuildFile; productRef = A4B645C92D9C7346000743CA /* ONXWatchTower */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		A4B645AA2D9C5C54000743CA /* AnalyticsHack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnalyticsHack.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4B645BE2D9C72E0000743CA /* ios-yellowstone */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "ios-yellowstone"; path = "/Users/jeremy.lehman/dev/onx/ios/ios-yellowstone"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +29,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4B645CA2D9C7346000743CA /* ONXWatchTower in Frameworks */,
+				A4B645BD2D9C72D1000743CA /* ONXYellowstone in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -34,6 +42,7 @@
 			children = (
 				A4B645AC2D9C5C54000743CA /* AnalyticsHack */,
 				A4B645AB2D9C5C54000743CA /* Products */,
+				A4B645BE2D9C72E0000743CA /* ios-yellowstone */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,6 +74,8 @@
 			);
 			name = AnalyticsHack;
 			packageProductDependencies = (
+				A4B645BC2D9C72D1000743CA /* ONXYellowstone */,
+				A4B645C92D9C7346000743CA /* ONXWatchTower */,
 			);
 			productName = AnalyticsHack;
 			productReference = A4B645AA2D9C5C54000743CA /* AnalyticsHack.app */;
@@ -94,6 +105,9 @@
 			);
 			mainGroup = A4B645A12D9C5C54000743CA;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A4B645BB2D9C72D1000743CA /* XCLocalSwiftPackageReference "../../ios-yellowstone" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A4B645AB2D9C5C54000743CA /* Products */;
 			projectDirPath = "";
@@ -324,6 +338,24 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A4B645BB2D9C72D1000743CA /* XCLocalSwiftPackageReference "../../ios-yellowstone" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../ios-yellowstone";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A4B645BC2D9C72D1000743CA /* ONXYellowstone */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ONXYellowstone;
+		};
+		A4B645C92D9C7346000743CA /* ONXWatchTower */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ONXWatchTower;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A4B645A22D9C5C54000743CA /* Project object */;
 }
