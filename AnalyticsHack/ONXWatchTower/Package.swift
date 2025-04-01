@@ -13,11 +13,15 @@ let package = Package(
             targets: ["ONXWatchTower"]
         ),
     ],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-atomics", .exactItem("1.2.0"))
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "ONXWatchTower"
+            name: "ONXWatchTower",
+            dependencies: [.product(name: "Atomics", package: "swift-atomics")]
         ),
         .testTarget(
             name: "ONXWatchTowerTests",

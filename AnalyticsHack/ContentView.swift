@@ -7,7 +7,9 @@ struct ContentView: View {
         NavigationStack {
             List {
                 Section(header: Text("Yellowstone Components")) {
-                    YSButton("Button")
+                    YSButton("Button", action: { print("I did something") })
+                        .primary()
+                    YSButton("Slow button", action: { try await Task.sleep(for: .seconds(3))})
                         .primary()
                     YSChip(
                         viewModel: YSSelectionChipViewModel(
