@@ -17,8 +17,10 @@ struct ContentView: View {
                         )
                     )
                 }
-                NavigationLink(destination: WatchTowerView()) {
-                    YSButton("View WatchTower Events")
+                Section(header: Text("Watch Tower")) {
+                    NavigationLink(destination: WatchTowerView()) {
+                        YSButton("View WatchTower Events")
+                    }
                 }
             }
             .padding()

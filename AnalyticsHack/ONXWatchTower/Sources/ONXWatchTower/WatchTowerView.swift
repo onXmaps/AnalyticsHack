@@ -6,6 +6,10 @@ public struct WatchTowerView: View {
         
     }
     public var body: some View {
+        Button("Upload Events") {
+            print("uploaded")
+            watchTower.reset()
+        }
         List {
             ForEach(watchTower.events) { event in
                 VStack(alignment: .leading) {

@@ -21,6 +21,11 @@ public final class WatchTower {
         events.append(event)
     }
     
+    public func upload() async throws {
+        print("Uploaded!")
+        events.removeAll()
+    }
+    
     public func logWithTime<T>(_ event: Event, block: () async throws -> T) async throws -> T {
         let (result, duration) = try await logTime(block)
         let timedEvent = Event(id: event.id, type: event.type, value: "{value: \(event.value), time: \(duration)}")
@@ -44,4 +49,7 @@ public final class WatchTower {
         try await measureTower.measure(block)
     }
 
+    public func reset() {
+        events.removeAll()
+    }
 }
