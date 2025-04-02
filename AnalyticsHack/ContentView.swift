@@ -3,6 +3,7 @@ import ONXYellowstone
 import ONXWatchTower
 
 struct ContentView: View {
+    private let apiClient = SwapiClient()
     var body: some View {
         NavigationStack {
             List {
@@ -16,6 +17,11 @@ struct ContentView: View {
                             name: YSText("Chip 1")
                         )
                     )
+                }
+                Section(header: Text("Network Request")) {
+                    YSButton("Query Star Wars API") {
+                        let _ = try await apiClient.getPeople(1)
+                    }
                 }
                 Section(header: Text("Watch Tower")) {
                     NavigationLink(destination: WatchTowerView()) {
