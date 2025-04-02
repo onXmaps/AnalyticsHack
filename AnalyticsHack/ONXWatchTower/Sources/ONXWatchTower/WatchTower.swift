@@ -5,8 +5,8 @@ import CoreTelephony
 
 public struct Event: Identifiable, Sendable, Codable {
     enum CodingKeys: String, CodingKey {
-        case id
-        case type = "eventType"
+        case id = "event_id"
+        case type = "event_type"
         case value
     }
     public let id: UUID
@@ -29,7 +29,6 @@ public final class WatchTower: @unchecked Sendable {
     private let networkMonitorQueue = DispatchQueue(label: "com.onxmaps.WatchTower.networkMonitorQueue")
     private(set) var events: [Event] = []
     private var lastConnectionType: String?
-
     public init() {
         startNetworkMonitoring()
     }
@@ -80,9 +79,7 @@ public final class WatchTower: @unchecked Sendable {
         let eventsToUpload = logQueue.sync { [self] in
             self.events
         }
-        for event in eventsToUpload {
-            try await watchTowerNetworking.upload(event: event)
-        }
+        try await watchTowerNetworking.upload(events: eventsToUpload)
         logQueue.async { [self] in
             events.removeAll()
         }

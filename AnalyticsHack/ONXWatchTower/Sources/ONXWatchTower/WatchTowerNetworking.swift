@@ -17,7 +17,10 @@ struct WatchTowerNetworking {
         client = HTTPClient(configuration: clientConfig)
     }
     
-    func upload(event: Event) async throws {
-        try await client.send(.post("/yellowstone-events", body: event))
+    struct EventsRequest: Codable {
+        let events: [Event]
+    }
+    func upload(events: [Event]) async throws {
+        try await client.send(.post("/yellowstone-events", body: EventsRequest(events: events)))
     }
 }
