@@ -53,7 +53,7 @@ public final class WatchTower: @unchecked Sendable {
             }
             guard connectionType != self?.lastConnectionType else { return }
             self?.lastConnectionType = connectionType
-            let event = Event(id: UUID(), type: "NetworkChange", value: connectionType)
+            let event = Event(id: UUID(), type: "network_change", value: connectionType)
             self?.log(event)
         }
         networkMonitor.start(queue: networkMonitorQueue)
