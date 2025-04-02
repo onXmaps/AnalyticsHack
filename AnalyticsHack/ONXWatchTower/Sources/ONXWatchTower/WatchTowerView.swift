@@ -6,9 +6,14 @@ public struct WatchTowerView: View {
         
     }
     public var body: some View {
-        Button("Upload Events") {
-            print("uploaded")
-            watchTower.reset()
+        Button("Upload") {
+            Task {
+                do {
+                    try await watchTower.upload()
+                } catch {
+                    print("Failed to upload: \(error)")
+                }
+            }
         }
         List {
             ForEach(watchTower.events) { event in

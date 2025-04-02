@@ -1,6 +1,11 @@
 import Foundation
 
-public struct Event: Identifiable, Sendable {
+public struct Event: Identifiable, Sendable, Codable {
+    enum CodingKeys: String, CodingKey {
+        case id
+        case type = "eventType"
+        case value
+    }
     public let id: UUID
     public let type: String
     public let value: String
@@ -12,18 +17,30 @@ public struct Event: Identifiable, Sendable {
     }
 }
 
-public final class WatchTower {
-    @MainActor public static let shared = WatchTower()
-    private let measureTower = TimeTower()
+public final class WatchTower: @unchecked Sendable {
+    public static let shared = WatchTower()
+    private let timeTower = TimeTower()
+    private let watchTowerNetworking = WatchTowerNetworking()
+    private let logQueue = DispatchQueue(label: "com.onxmaps.WatchTower.logQueue")
     private(set) var events: [Event] = []
+    
     public func log(_ event: Event) {
         print("Logged Event:\nid: \(event.id)\ntype: \(event.type)\nvalue: \(event.value)\n")
-        events.append(event)
+        logQueue.async { [self] in
+            events.append(event)
+        }
     }
     
     public func upload() async throws {
-        print("Uploaded!")
-        events.removeAll()
+        let eventsToUpload = logQueue.sync { [self] in
+            self.events
+        }
+        for event in eventsToUpload {
+            try await watchTowerNetworking.upload(event: event)
+        }
+        logQueue.async { [self] in
+            events.removeAll()
+        }
     }
     
     public func logWithTime<T>(_ event: Event, block: () async throws -> T) async throws -> T {
@@ -34,22 +51,18 @@ public final class WatchTower {
     }
     
     public func logTime<T>(_ block: () -> T) -> (result: T, duration: Duration) {
-        measureTower.measure(block)
+        timeTower.measure(block)
     }
     
     public func logTime<T>(_ block: () throws -> T) throws -> (result: T, duration: Duration) {
-        try measureTower.measure(block)
+        try timeTower.measure(block)
     }
    
     public func logTime<T>(_ block: () async -> T) async -> (result: T, duration: Duration) {
-        await measureTower.measure(block)
+        await timeTower.measure(block)
     }
     
     public func logTime<T>(_ block: () async throws -> T) async throws -> (result: T, duration: Duration) {
-        try await measureTower.measure(block)
-    }
-
-    public func reset() {
-        events.removeAll()
+        try await timeTower.measure(block)
     }
 }

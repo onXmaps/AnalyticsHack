@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A491B3E12D9C8DCF0019267A /* ONXNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = A491B3E02D9C8DCF0019267A /* ONXNetworking */; };
 		A4B645BD2D9C72D1000743CA /* ONXYellowstone in Frameworks */ = {isa = PBXBuildFile; productRef = A4B645BC2D9C72D1000743CA /* ONXYellowstone */; };
 		A4B645CA2D9C7346000743CA /* ONXWatchTower in Frameworks */ = {isa = PBXBuildFile; productRef = A4B645C92D9C7346000743CA /* ONXWatchTower */; };
 /* End PBXBuildFile section */
@@ -30,6 +31,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4B645CA2D9C7346000743CA /* ONXWatchTower in Frameworks */,
+				A491B3E12D9C8DCF0019267A /* ONXNetworking in Frameworks */,
 				A4B645BD2D9C72D1000743CA /* ONXYellowstone in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,6 +78,7 @@
 			packageProductDependencies = (
 				A4B645BC2D9C72D1000743CA /* ONXYellowstone */,
 				A4B645C92D9C7346000743CA /* ONXWatchTower */,
+				A491B3E02D9C8DCF0019267A /* ONXNetworking */,
 			);
 			productName = AnalyticsHack;
 			productReference = A4B645AA2D9C5C54000743CA /* AnalyticsHack.app */;
@@ -107,6 +110,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				A4B645BB2D9C72D1000743CA /* XCLocalSwiftPackageReference "../../ios-yellowstone" */,
+				A491B3DF2D9C8DCF0019267A /* XCRemoteSwiftPackageReference "ios-core-services" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A4B645AB2D9C5C54000743CA /* Products */;
@@ -346,7 +350,23 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		A491B3DF2D9C8DCF0019267A /* XCRemoteSwiftPackageReference "ios-core-services" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onXmaps/ios-core-services";
+			requirement = {
+				kind = exactVersion;
+				version = 2.2.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		A491B3E02D9C8DCF0019267A /* ONXNetworking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A491B3DF2D9C8DCF0019267A /* XCRemoteSwiftPackageReference "ios-core-services" */;
+			productName = ONXNetworking;
+		};
 		A4B645BC2D9C72D1000743CA /* ONXYellowstone */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ONXYellowstone;
