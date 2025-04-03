@@ -4,18 +4,31 @@ import Network
 import CoreTelephony
 
 public struct Event: Identifiable, Sendable, Codable {
+    public struct Metadata {
+        let type: String
+        let value: String
+        public init(type: String, value: String) {
+            self.type = type
+            self.value = value
+        }
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id = "event_id"
+        case sessionId = "session_id"
         case type = "event_type"
         case value
+        case timestamp
     }
-    public let id: UUID
+    
+    public let id: UUID = .init()
+    public let sessionId: UUID
     public let type: String
     public let value: String
-    let timestamp: Date = .init()
+    public let timestamp: Date = .init()
 
-    public init(id: UUID, type: String, value: String) {
-        self.id = id
+    public init(sessionId: UUID, type: String, value: String) {
+        self.sessionId = sessionId
         self.type = type
         self.value = value
     }
@@ -30,6 +43,7 @@ public final class WatchTower: @unchecked Sendable {
     private let networkMonitorQueue = DispatchQueue(label: "com.onxmaps.WatchTower.networkMonitorQueue")
     private(set) var events: [Event] = []
     private var lastConnectionType: String?
+    private let sessionId = UUID()
     public init() {
         startNetworkMonitoring()
     }
@@ -53,7 +67,7 @@ public final class WatchTower: @unchecked Sendable {
             }
             guard connectionType != self?.lastConnectionType else { return }
             self?.lastConnectionType = connectionType
-            let event = Event(id: UUID(), type: "network_change", value: connectionType)
+            let event = Event.Metadata(type: "network_change", value: connectionType)
             self?.log(event)
         }
         networkMonitor.start(queue: networkMonitorQueue)
@@ -69,7 +83,8 @@ public final class WatchTower: @unchecked Sendable {
         return Array<String>(technologies)
     }
     
-    public func log(_ event: Event) {
+    public func log(_ event: Event.Metadata) {
+        let event = Event(sessionId: sessionId, type: event.type, value: event.value)
         print("Logged Event:\nid: \(event.id)\ntype: \(event.type)\nvalue: \(event.value)\n")
         logQueue.async { [self] in
             events.append(event)
@@ -86,9 +101,9 @@ public final class WatchTower: @unchecked Sendable {
         }
     }
     
-    public func logWithTime<T>(_ event: Event, block: () async throws -> T) async throws -> T {
+    public func logWithTime<T>(_ event: Event.Metadata, block: () async throws -> T) async throws -> T {
         let (result, duration) = try await logTime(block)
-        let timedEvent = Event(id: event.id, type: event.type, value: "{value: \(event.value), time: \(duration)}")
+        let timedEvent = Event.Metadata(type: event.type, value: "{value: \(event.value), time: \(duration)}")
         log(timedEvent)
         return result
     }

@@ -32,7 +32,7 @@ class WatchTowerURLProtocol: URLProtocol {
         
         
         
-        let event = Event(id: .init(), type: "network_request", value: mutableRequest.url?.absoluteString ?? "unknown URL")
+        let event = Event.Metadata(type: "network_request", value: mutableRequest.url?.absoluteString ?? "unknown URL")
         watchTower.log(event)
         // Create a URLSession task to perform the actual network request.
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
