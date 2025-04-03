@@ -3,6 +3,7 @@ import Foundation
 
 struct WatchTowerNetworking {
     let client: HTTPClient
+    let encoder = JSONEncoder()
     init() {
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.httpAdditionalHeaders = [
@@ -11,7 +12,9 @@ struct WatchTowerNetworking {
             "ONX-Application-Version": "1.0",
             "ONX-Application-Platform": "iOS"
         ]
-        let clientConfig = HTTPClientConfiguration(host: "https://yellowstone-hackathon.daily.onxmaps.com", sessionConfiguration: sessionConfig)
+        var clientConfig = HTTPClientConfiguration(host: "https://yellowstone-hackathon.daily.onxmaps.com", sessionConfiguration: sessionConfig)
+        encoder.dateEncodingStrategy = .iso8601
+        clientConfig.encoder = encoder
         client = HTTPClient(configuration: clientConfig)
     }
     
@@ -19,6 +22,8 @@ struct WatchTowerNetworking {
         let events: [Event]
     }
     func upload(events: [Event]) async throws {
+        let eventData = try encoder.encode(events)
+        print(try! JSONSerialization.jsonObject(with: eventData))
         try await client.send(.post("/api/v1/yellowstone/events", body: EventsRequest(events: events)))
     }
 }

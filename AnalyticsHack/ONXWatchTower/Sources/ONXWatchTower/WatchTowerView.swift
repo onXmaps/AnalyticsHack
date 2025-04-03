@@ -10,6 +10,7 @@ public struct WatchTowerView: View {
             Task {
                 do {
                     try await watchTower.upload()
+                    print("Uploaded succesfully")
                 } catch {
                     print("Failed to upload: \(error)")
                 }
