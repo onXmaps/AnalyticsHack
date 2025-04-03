@@ -11,9 +11,7 @@ struct WatchTowerNetworking {
             "ONX-Application-Version": "1.0",
             "ONX-Application-Platform": "iOS"
         ]
-        var clientConfig = HTTPClientConfiguration(host: "localhost", sessionConfiguration: sessionConfig)
-        clientConfig.isInsecure = true
-        clientConfig.port = 8080
+        let clientConfig = HTTPClientConfiguration(host: "https://yellowstone-hackathon.daily.onxmaps.com", sessionConfiguration: sessionConfig)
         client = HTTPClient(configuration: clientConfig)
     }
     
@@ -21,6 +19,6 @@ struct WatchTowerNetworking {
         let events: [Event]
     }
     func upload(events: [Event]) async throws {
-        try await client.send(.post("/yellowstone-events", body: EventsRequest(events: events)))
+        try await client.send(.post("/api/v1/yellowstone/events", body: EventsRequest(events: events)))
     }
 }
