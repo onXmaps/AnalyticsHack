@@ -19,6 +19,7 @@ public struct WatchTowerView: View {
             ForEach(watchTower.events) { event in
                 VStack(alignment: .leading) {
                     Text("Type: \(event.type)")
+                    Text("Created at: \(event.timestamp)")
                     Text(event.value)
                 }
             }

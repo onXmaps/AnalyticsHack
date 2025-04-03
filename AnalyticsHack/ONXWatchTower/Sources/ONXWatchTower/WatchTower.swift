@@ -12,6 +12,7 @@ public struct Event: Identifiable, Sendable, Codable {
     public let id: UUID
     public let type: String
     public let value: String
+    let timestamp: Date = .init()
 
     public init(id: UUID, type: String, value: String) {
         self.id = id
