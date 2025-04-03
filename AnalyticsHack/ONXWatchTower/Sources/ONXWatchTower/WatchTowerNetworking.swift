@@ -13,7 +13,13 @@ struct WatchTowerNetworking {
             "ONX-Application-Platform": "iOS"
         ]
         var clientConfig = HTTPClientConfiguration(host: "https://yellowstone-hackathon.daily.onxmaps.com", sessionConfiguration: sessionConfig)
-        encoder.dateEncodingStrategy = .iso8601
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        encoder.dateEncodingStrategy = .custom({ date, encoder in
+            var container = encoder.singleValueContainer()
+            try container.encode(formatter.string(from: date))
+        })
+        
         clientConfig.encoder = encoder
         client = HTTPClient(configuration: clientConfig)
     }
